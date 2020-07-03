@@ -1,0 +1,18 @@
+{
+  "name": "graphneo",
+  "version": "1.0.0",
+  "description": "proyecto realizado con graphql y neo4j",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server/"
+  },
+  "author": "mabravo153",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server-express": "^2.15.1",
+    "express": "^4.17.1",
+    "graphql": "^15.2.0",
+    "neo4j-driver": "^4.1.0"
+  }
+}
