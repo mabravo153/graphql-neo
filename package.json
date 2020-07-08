@@ -13,6 +13,7 @@
     "apollo-server-express": "^2.15.1",
     "express": "^4.17.1",
     "graphql": "^15.2.0",
-    "neo4j-driver": "^4.1.0"
+    "neo4j-driver": "^4.1.0",
+    "uuid": "^8.2.0"
   }
 }

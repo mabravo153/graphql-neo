@@ -6,12 +6,25 @@ type User {
     id: ID!
     name: String!
     lastname: String!
-    order: [Order]
+    phone: String
 }
 
 
 type Query {
-    showUser: [User!]
+    showUsers: responseUser
+    showUser(id: ID!): responseUser
+}
+
+type Mutation {
+    storeUser(name: String! , lastname: String!, phone: String): responseUser
+    updateUser(id: ID!, name: String!, lastname: String!, phone: String): responseUser
+}
+
+
+type responseUser {
+    code: String!
+    msg: String!
+    user: [User]
 }
 
 `;
