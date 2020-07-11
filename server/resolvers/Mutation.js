@@ -1,4 +1,6 @@
 const userModel = require('../models/userModel')
+const orderModel = require('../models/orderModel')
+const uuid = require('uuid')
 
 
 const Mutation = {
@@ -31,6 +33,7 @@ const Mutation = {
         return data
 
     },
+
     updateUser: async (parent, args, context, info) => {
 
         let data;
@@ -58,7 +61,57 @@ const Mutation = {
 
         return data
 
+    },
+
+    deleteUser: async (parent, args, context, info) => {
+        const id = args.id 
+
+        const data = await userModel.deleteUser(id)
+
+        return data
+    },
+
+    createOrder: async (parent, args, context, info) => {
+        
+        let errores = []
+        let data; 
+
+        if(!args.idUser){
+            errores.push('falta el id de usuario')
+        }
+        if(!args.price){
+            errores.push('falta el precio del producto')
+        }
+        if(!args.products){
+            errores.push('falta el nombre del product')
+        }
+
+        if(errores.length){
+
+            data = {
+                code: 400,
+                msg: 'Info is required'
+            }
+
+        }else{
+            
+            const promiseProducts = Promise.resolve(args.products.map(element => JSON.parse(JSON.stringify(element))))
+            
+            args.id = uuid.v4()
+            args.date = new Date().toUTCString()
+
+            args.products = await promiseProducts
+            
+
+            data = await orderModel.create(args)
+
+        }
+
+        return data;
+
+
     }
+
 
 }
 

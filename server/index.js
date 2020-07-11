@@ -1,6 +1,8 @@
 const { ApolloServer } = require('apollo-server-express')
 const Query = require('./resolvers/Query')
 const Mutation  = require('./resolvers/Mutation')
+const User = require('./resolvers/User')
+const Order = require('./resolvers/Order')
 const typeDefs = require('./schema')
 const express = require('express')
 
@@ -10,7 +12,7 @@ const express = require('express')
 const app = express()
 const server = new ApolloServer({
     typeDefs,
-    resolvers: { Query, Mutation}
+    resolvers: { Query, Mutation, User, Order }
 })
 
 
