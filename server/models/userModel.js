@@ -8,20 +8,30 @@ const userModel = {
         let data;
         if(driver){
 
-            const session = driver.session({database: 'proyectoneo'})
+            const session = driver.session()
 
             try {
                 const query = await session.readTransaction(tx => 
                     tx.run( 'MATCH (p :Person) RETURN p' ))
     
+                
     
-                const Promisefields = Promise.resolve(query.records.map(element => element.get('p').properties ))
-                const field = await Promisefields
+                if (!query.records.length) {
+                    
+                    data = {
+                        code: 404,
+                        msg: 'Info not available'
+                    }
 
-                data = {
-                    code: 200,
-                    msg: 'Correct',
-                    user: field 
+                }else{
+                    const Promisefields = Promise.resolve(query.records.map(element => element.get('p').properties ))
+                    const field = await Promisefields
+
+                    data = {
+                        code: 200,
+                        msg: 'Correct',
+                        user: field 
+                    }
                 }
 
             } catch (error) {
@@ -55,7 +65,7 @@ const userModel = {
 
         if(driver){
 
-            const session = driver.session({database: 'proyectoneo'})
+            const session = driver.session()
 
             try {
                 const query = await session.writeTransaction(tx => 
@@ -97,7 +107,7 @@ const userModel = {
 
         if(driver){
 
-            const session = driver.session({database: 'proyectoneo'})
+            const session = driver.session()
 
             try {
                 
@@ -149,7 +159,7 @@ const userModel = {
 
         if(driver){
 
-            const session = driver.session({database: 'proyectoneo'})
+            const session = driver.session()
 
             try {
                 
@@ -200,7 +210,7 @@ const userModel = {
 
         if(driver){
 
-            const session = driver.session({database: 'proyectoneo'})
+            const session = driver.session()
 
             try {
                 
@@ -252,7 +262,7 @@ const userModel = {
 
         if(driver){
 
-            const session = driver.session({database: 'proyectoneo'})
+            const session = driver.session()
 
             try {
                 
@@ -262,7 +272,10 @@ const userModel = {
                 
                 if(query.records.length){
 
+                   
+
                     const promiseField = Promise.resolve(query.records.map(element => {
+
                         return {
                             ...element.get('b').properties,
                             ...element.get('o').properties

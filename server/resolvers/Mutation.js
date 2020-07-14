@@ -1,5 +1,6 @@
 const userModel = require('../models/userModel')
 const orderModel = require('../models/orderModel')
+const productModel = require('../models/productModel')
 const uuid = require('uuid')
 
 
@@ -110,6 +111,31 @@ const Mutation = {
         return data;
 
 
+    },
+
+    createProduct: async (parent, args, context, info) => {
+
+        let data; 
+        let errores = []
+
+        if(!args.name){
+            errores.push('el nombre del producto es requerido')
+        }
+
+        if(errores.length){
+
+            data = {
+                code: 400,
+                msg: 'Error, info required'
+            }
+
+        }else{
+            args.id = uuid.v4()
+
+            data = await productModel.create(args)
+        }
+
+        return data 
     }
 
 

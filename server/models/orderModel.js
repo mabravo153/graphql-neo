@@ -10,7 +10,7 @@ const orderModel = {
 
         if(driver){
 
-            const session = driver.session({database: 'proyectoneo'})
+            const session = driver.session()
 
             try {
                 
@@ -72,7 +72,7 @@ const orderModel = {
 
         if(driver){
 
-            const session = driver.session({database: 'proyectoneo'})
+            const session = driver.session()
 
             try{
 
@@ -133,7 +133,7 @@ const orderModel = {
 
         if(driver){
 
-            const session = driver.session({database: 'proyectoneo'})
+            const session = driver.session()
 
             try{
 
@@ -144,24 +144,19 @@ const orderModel = {
                 if(query.records.length){
 
                     data = query.records.map(element => element.get('p').properties)
-
                 }else{
-                    console.log('aqui 1');
-                    
                     data = null
 
                 }
-
             }catch(error){
                 console.log(error);
 
                 data = null
                 
             }
-
         }else{
             data =null
-            console.log('aqui 2');
+            
         }
 
         return data
